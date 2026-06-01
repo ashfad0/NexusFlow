@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusFlow - Agency HR & PM Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <ion-icon name="git-network-outline"></ion-icon>
+                    <h1>NexusFlow</h1>
+                </div>
+                <p class="tagline">Agency HR & Project Management</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Module A: HR Talent Roster -->
+            <section class="module hr-module">
+                <div class="module-header">
+                    <h2>
+                        <ion-icon name="people-outline"></ion-icon>
+                        HR Talent Roster
+                    </h2>
+                    <button class="btn btn-primary" id="addTalentBtn">
+                        <ion-icon name="person-add-outline"></ion-icon>
+                        Add Talent
+                    </button>
+                </div>
+
+                <!-- Roster Metrics -->
+                <div class="metrics-panel">
+                    <div class="metric-card">
+                        <ion-icon name="people-circle-outline"></ion-icon>
+                        <div class="metric-content">
+                            <span class="metric-label">Total Headcount</span>
+                            <span class="metric-value" id="totalHeadcount">0</span>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <ion-icon name="briefcase-outline"></ion-icon>
+                        <div class="metric-content">
+                            <span class="metric-label">Active Utilization Rate</span>
+                            <span class="metric-value" id="utilizationRate">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Talent Registration Form (Hidden by default) -->
+                <div class="form-modal" id="talentFormModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Register New Talent</h3>
+                            <button class="close-btn" id="closeTalentForm">
+                                <ion-icon name="close-outline"></ion-icon>
+                            </button>
+                        </div>
+                        <form id="talentForm">
+                            <div class="form-group">
+                                <label for="talentName">
+                                    <ion-icon name="person-outline"></ion-icon>
+                                    Full Name
+                                </label>
+                                <input type="text" id="talentName" required placeholder="Enter full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="talentRole">
+                                    <ion-icon name="code-slash-outline"></ion-icon>
+                                    Core Role
+                                </label>
+                                <select id="talentRole" required>
+                                    <option value="">Select role</option>
+                                    <option value="Developer">Developer</option>
+                                    <option value="Designer">Designer</option>
+                                    <option value="QA">QA</option>
+                                    <option value="PM">PM</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="talentRate">
+                                    <ion-icon name="cash-outline"></ion-icon>
+                                    Pay Rate (per hour)
+                                </label>
+                                <input type="number" id="talentRate" required placeholder="0" min="0" step="0.01">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <ion-icon name="checkmark-outline"></ion-icon>
+                                Register Talent
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Talent Roster Table -->
+                <div class="talent-roster">
+                    <table class="roster-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Rate/Hour</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="talentTableBody">
+                            <!-- Dynamic content will be inserted here -->
+                        </tbody>
+                    </table>
+                    <div class="empty-state" id="talentEmptyState">
+                        <ion-icon name="person-add-outline"></ion-icon>
+                        <p>No talent registered yet. Click "Add Talent" to get started.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Module B: Project Pipeline (Kanban) -->
+            <section class="module project-module">
+                <div class="module-header">
+                    <h2>
+                        <ion-icon name="grid-outline"></ion-icon>
+                        Project Pipeline
+                    </h2>
+                    <button class="btn btn-primary" id="addProjectBtn">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                        New Project
+                    </button>
+                </div>
+
+                <!-- Project Initialization Form (Hidden by default) -->
+                <div class="form-modal" id="projectFormModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Initialize New Project</h3>
+                            <button class="close-btn" id="closeProjectForm">
+                                <ion-icon name="close-outline"></ion-icon>
+                            </button>
+                        </div>
+                        <form id="projectForm">
+                            <div class="form-group">
+                                <label for="projectTitle">
+                                    <ion-icon name="document-text-outline"></ion-icon>
+                                    Project Title
+                                </label>
+                                <input type="text" id="projectTitle" required placeholder="Enter project title">
+                            </div>
+                            <div class="form-group">
+                                <label for="clientName">
+                                    <ion-icon name="business-outline"></ion-icon>
+                                    Client Name
+                                </label>
+                                <input type="text" id="clientName" required placeholder="Enter client name">
+                            </div>
+                            <div class="form-group">
+                                <label for="projectDeadline">
+                                    <ion-icon name="calendar-outline"></ion-icon>
+                                    Deadline Date
+                                </label>
+                                <input type="date" id="projectDeadline" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <ion-icon name="checkmark-outline"></ion-icon>
+                                Initialize Project
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Kanban Board -->
+                <div class="kanban-board">
+                    <div class="kanban-column">
+                        <div class="column-header backlog">
+                            <ion-icon name="file-tray-outline"></ion-icon>
+                            <h3>Backlog</h3>
+                            <span class="count" id="backlogCount">0</span>
+                        </div>
+                        <div class="column-content" id="backlogColumn">
+                            <!-- Project cards will be inserted here -->
+                        </div>
+                    </div>
+
+                    <div class="kanban-column">
+                        <div class="column-header in-flight">
+                            <ion-icon name="rocket-outline"></ion-icon>
+                            <h3>In Flight</h3>
+                            <span class="count" id="inFlightCount">0</span>
+                        </div>
+                        <div class="column-content" id="inFlightColumn">
+                            <!-- Project cards will be inserted here -->
+                        </div>
+                    </div>
+
+                    <div class="kanban-column">
+                        <div class="column-header delivered">
+                            <ion-icon name="checkmark-done-outline"></ion-icon>
+                            <h3>Delivered</h3>
+                            <span class="count" id="deliveredCount">0</span>
+                        </div>
+                        <div class="column-content" id="deliveredColumn">
+                            <!-- Project cards will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Module C: Resource Allocation Modal -->
+        <div class="form-modal" id="allocationModal">
+            <div class="modal-content allocation-modal">
+                <div class="modal-header">
+                    <h3>
+                        <ion-icon name="link-outline"></ion-icon>
+                        Assign Resources
+                    </h3>
+                    <button class="close-btn" id="closeAllocationModal">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </div>
+                <div class="allocation-content">
+                    <div class="project-info">
+                        <h4 id="allocationProjectTitle"></h4>
+                        <p id="allocationProjectClient"></p>
+                    </div>
+                    <div class="allocation-section">
+                        <h4>
+                            <ion-icon name="add-outline"></ion-icon>
+                            Assign Team Member
+                        </h4>
+                        <div class="form-group">
+                            <select id="talentSelect">
+                                <option value="">Select team member...</option>
+                            </select>
+                            <button class="btn btn-secondary" id="assignTalentBtn">
+                                <ion-icon name="person-add-outline"></ion-icon>
+                                Assign
+                            </button>
+                        </div>
+                    </div>
+                    <div class="allocation-section">
+                        <h4>
+                            <ion-icon name="people-outline"></ion-icon>
+                            Assigned Team Members
+                        </h4>
+                        <div class="assigned-list" id="assignedTalentList">
+                            <!-- Assigned talent will be displayed here -->
+                        </div>
+                        <div class="empty-state small" id="assignedEmptyState">
+                            <ion-icon name="people-outline"></ion-icon>
+                            <p>No team members assigned yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/variables.js"></script>
+    <script src="./js/functions.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+</html>

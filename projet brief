@@ -1,0 +1,33 @@
+📋 Project Brief: NexusFlow (Agency HR & PM Tool)
+1. Project Overview
+NexusFlow is a single-page client-side application designed for digital agencies to track their workforce talent and monitor active project pipelines. The software serves as an internal operational dashboard, bridging human resource allocation with agile project management.
+
+2. Core Modules & Functional Requirements
+Module A: HR Talent Roster
+Talent Registration: A dedicated interface/form to input new team members. Required fields: Full Name, Core Role (e.g., Developer, Designer, QA, PM), and Pay Rate (per hour).
+
+Dynamic Status Tracking: Every employee must possess an internal operational state: Available, Assigned, or On Leave.
+
+Roster Metrics: A high-level statistics panel displaying:
+
+Total Headcount
+
+Active Utilization Rate (Percentage of team members currently marked as Assigned)
+
+Module B: Project Pipeline (Kanban Workflow)
+Project Initialization: A form to log client contracts. Required fields: Project Title, Client Name, and Deadline Date.
+
+Workflow Board: A visual 3-column board representing project life-cycles:
+
+Backlog (Newly initialized contracts)
+
+In Flight (Active development)
+
+Delivered (Archived/Completed contracts)
+
+State Migration: Mechanisms to advance a project sequentially forward or backward through the workflow columns.
+
+Module C: Resource Allocation Matrix (The Intersect)
+Cross-Reference Assignment: Within any project card, a deployment interface must allow a manager to select an employee from the HR Talent Roster and link them directly to that project.
+
+State Synchronization: When an employee is assigned to an In Flight project, their internal HR availability status must automatically toggle to Assigned. When the project moves to Delivered, their status must automatically revert to Available.
