@@ -1,5 +1,6 @@
 // register form active events
 
+
 talentFormBtn.addEventListener("click", function () {
   isInactive(talentFormModal);
 });
@@ -19,3 +20,23 @@ projectFormBtn.addEventListener("click", function () {
 closeProjectForm.addEventListener("click", function () {
   isInactive(projectFormModal);
 });
+
+
+
+// adding roles to select fields
+for(role of roles){
+    let roleOption = document.createElement('option')
+    roleOption.setAttribute('value', role);
+    roleOption.innerText = role;
+    rolesSelection.appendChild(roleOption)
+}
+
+// adding talents 
+
+talentsList.innerHTML = "";
+
+for(talent of talents){
+  addTalent(talent)
+}
+
+headCount.innerText = talents.length

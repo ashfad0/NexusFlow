@@ -1,708 +1,745 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NexusFlow - Agency HR & PM Tool</title>
-    <link rel="stylesheet" href="styles.css">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-        <link rel="stylesheet" href="./styles/styles.css">
-
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
+  <body>
     <div class="app-container">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="header-content">
-                <div class="logo">
-                    <ion-icon name="git-network-outline"></ion-icon>
-                    <h1>NexusFlow</h1>
-                </div>
-                <p class="tagline">Agency HR & Project Management</p>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Module A: HR Talent Roster -->
-            <section class="module hr-module">
-                <div class="module-header">
-                    <h2>
-                        <ion-icon name="people-outline"></ion-icon>
-                        HR Talent Roster
-                    </h2>
-                    <button class="btn btn-primary" id="addTalentBtn">
-                        <ion-icon name="person-add-outline"></ion-icon>
-                        Add Talent
-                    </button>
-                </div>
-
-                <!-- Roster Metrics -->
-                <div class="metrics-panel">
-                    <div class="metric-card">
-                        <ion-icon name="people-circle-outline"></ion-icon>
-                        <div class="metric-content">
-                            <span class="metric-label">Total Headcount</span>
-                            <span class="metric-value" id="totalHeadcount">8</span>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <ion-icon name="briefcase-outline"></ion-icon>
-                        <div class="metric-content">
-                            <span class="metric-label">Active Utilization Rate</span>
-                            <span class="metric-value" id="utilizationRate">62.5%</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Talent Registration Form (Hidden by default) -->
-                <div class="form-modal" id="talentFormModal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>Register New Talent</h3>
-                            <button class="close-btn" id="closeTalentForm">
-                                <ion-icon name="close-outline"></ion-icon>
-                            </button>
-                        </div>
-                        <form id="talentForm">
-                            <div class="form-group">
-                                <label for="talentName">
-                                    <ion-icon name="person-outline"></ion-icon>
-                                    Full Name
-                                </label>
-                                <input type="text" id="talentName" required placeholder="Enter full name">
-                            </div>
-                            <div class="form-group">
-                                <label for="talentRole">
-                                    <ion-icon name="code-slash-outline"></ion-icon>
-                                    Core Role
-                                </label>
-                                <select id="talentRole" required>
-                                    <option value="">Select role</option>
-                                    <option value="Developer">Developer</option>
-                                    <option value="Designer">Designer</option>
-                                    <option value="QA">QA</option>
-                                    <option value="PM">PM</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="talentRate">
-                                    <ion-icon name="cash-outline"></ion-icon>
-                                    Pay Rate (per hour)
-                                </label>
-                                <input type="number" id="talentRate" required placeholder="0" min="0" step="0.01">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">
-                                <ion-icon name="checkmark-outline"></ion-icon>
-                                Register Talent
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Talent Roster Table -->
-                <div class="talent-roster">
-                    <table class="roster-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Role</th>
-                                <th>Rate/Hour</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="talentTableBody">
-                            <!-- Dummy Content -->
-                            <tr>
-                                <td>Sarah Mitchell</td>
-                                <td>Developer</td>
-                                <td>$85.00</td>
-                                <td>
-                                    <span class="status-badge assigned">
-                                        <ion-icon name="checkmark-circle"></ion-icon>
-                                        Assigned
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-secondary btn-small">
-                                            <ion-icon name="pencil-outline"></ion-icon>
-                                            Edit
-                                        </button>
-                                        <button class="btn btn-danger btn-small">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Marcus Chen</td>
-                                <td>Designer</td>
-                                <td>$75.00</td>
-                                <td>
-                                    <span class="status-badge available">
-                                        <ion-icon name="radio-button-on"></ion-icon>
-                                        Available
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-secondary btn-small">
-                                            <ion-icon name="pencil-outline"></ion-icon>
-                                            Edit
-                                        </button>
-                                        <button class="btn btn-danger btn-small">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Emily Rodriguez</td>
-                                <td>PM</td>
-                                <td>$95.00</td>
-                                <td>
-                                    <span class="status-badge assigned">
-                                        <ion-icon name="checkmark-circle"></ion-icon>
-                                        Assigned
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-secondary btn-small">
-                                            <ion-icon name="pencil-outline"></ion-icon>
-                                            Edit
-                                        </button>
-                                        <button class="btn btn-danger btn-small">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>James Park</td>
-                                <td>Developer</td>
-                                <td>$90.00</td>
-                                <td>
-                                    <span class="status-badge assigned">
-                                        <ion-icon name="checkmark-circle"></ion-icon>
-                                        Assigned
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-secondary btn-small">
-                                            <ion-icon name="pencil-outline"></ion-icon>
-                                            Edit
-                                        </button>
-                                        <button class="btn btn-danger btn-small">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Olivia Thompson</td>
-                                <td>QA</td>
-                                <td>$70.00</td>
-                                <td>
-                                    <span class="status-badge on-leave">
-                                        <ion-icon name="time-outline"></ion-icon>
-                                        On Leave
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-secondary btn-small">
-                                            <ion-icon name="pencil-outline"></ion-icon>
-                                            Edit
-                                        </button>
-                                        <button class="btn btn-danger btn-small">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>David Kumar</td>
-                                <td>Designer</td>
-                                <td>$80.00</td>
-                                <td>
-                                    <span class="status-badge assigned">
-                                        <ion-icon name="checkmark-circle"></ion-icon>
-                                        Assigned
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-secondary btn-small">
-                                            <ion-icon name="pencil-outline"></ion-icon>
-                                            Edit
-                                        </button>
-                                        <button class="btn btn-danger btn-small">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Lisa Anderson</td>
-                                <td>Developer</td>
-                                <td>$88.00</td>
-                                <td>
-                                    <span class="status-badge available">
-                                        <ion-icon name="radio-button-on"></ion-icon>
-                                        Available
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-secondary btn-small">
-                                            <ion-icon name="pencil-outline"></ion-icon>
-                                            Edit
-                                        </button>
-                                        <button class="btn btn-danger btn-small">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ryan Walsh</td>
-                                <td>QA</td>
-                                <td>$72.00</td>
-                                <td>
-                                    <span class="status-badge available">
-                                        <ion-icon name="radio-button-on"></ion-icon>
-                                        Available
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn btn-secondary btn-small">
-                                            <ion-icon name="pencil-outline"></ion-icon>
-                                            Edit
-                                        </button>
-                                        <button class="btn btn-danger btn-small">
-                                            <ion-icon name="trash-outline"></ion-icon>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="empty-state" id="talentEmptyState">
-                        <ion-icon name="person-add-outline"></ion-icon>
-                        <p>No talent registered yet. Click "Add Talent" to get started.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Module B: Project Pipeline (Kanban) -->
-            <section class="module project-module">
-                <div class="module-header">
-                    <h2>
-                        <ion-icon name="grid-outline"></ion-icon>
-                        Project Pipeline
-                    </h2>
-                    <button class="btn btn-primary" id="addProjectBtn">
-                        <ion-icon name="add-circle-outline"></ion-icon>
-                        New Project
-                    </button>
-                </div>
-
-                <!-- Project Initialization Form (Hidden by default) -->
-                <div class="form-modal" id="projectFormModal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>Initialize New Project</h3>
-                            <button class="close-btn" id="closeProjectForm">
-                                <ion-icon name="close-outline"></ion-icon>
-                            </button>
-                        </div>
-                        <form id="projectForm">
-                            <div class="form-group">
-                                <label for="projectTitle">
-                                    <ion-icon name="document-text-outline"></ion-icon>
-                                    Project Title
-                                </label>
-                                <input type="text" id="projectTitle" required placeholder="Enter project title">
-                            </div>
-                            <div class="form-group">
-                                <label for="clientName">
-                                    <ion-icon name="business-outline"></ion-icon>
-                                    Client Name
-                                </label>
-                                <input type="text" id="clientName" required placeholder="Enter client name">
-                            </div>
-                            <div class="form-group">
-                                <label for="projectDeadline">
-                                    <ion-icon name="calendar-outline"></ion-icon>
-                                    Deadline Date
-                                </label>
-                                <input type="date" id="projectDeadline" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">
-                                <ion-icon name="checkmark-outline"></ion-icon>
-                                Initialize Project
-                            </button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Kanban Board -->
-                <div class="kanban-board">
-                    <!-- Backlog Column -->
-                    <div class="kanban-column">
-                        <div class="column-header backlog">
-                            <ion-icon name="file-tray-outline"></ion-icon>
-                            <h3>Backlog</h3>
-                            <span class="count" id="backlogCount">2</span>
-                        </div>
-                        <div class="column-content" id="backlogColumn">
-                            <!-- Project Card 1 -->
-                            <div class="project-card">
-                                <div class="project-header">
-                                    <h4>Website Redesign</h4>
-                                    <div class="client-name">
-                                        <ion-icon name="business-outline"></ion-icon>
-                                        TechStart Inc.
-                                    </div>
-                                </div>
-                                <div class="project-meta">
-                                    <ion-icon name="calendar-outline"></ion-icon>
-                                    Deadline: March 30, 2024
-                                </div>
-                                <div class="project-team">
-                                    <div class="team-label">Assigned Team</div>
-                                    <div class="no-team">No team members assigned</div>
-                                </div>
-                                <div class="project-actions">
-                                    <button class="btn btn-primary btn-small">
-                                        <ion-icon name="arrow-forward-outline"></ion-icon>
-                                        Start
-                                    </button>
-                                    <button class="btn btn-secondary btn-small">
-                                        <ion-icon name="people-outline"></ion-icon>
-                                        Assign
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Project Card 2 -->
-                            <div class="project-card">
-                                <div class="project-header">
-                                    <h4>Mobile App Development</h4>
-                                    <div class="client-name">
-                                        <ion-icon name="business-outline"></ion-icon>
-                                        FinanceFlow Ltd.
-                                    </div>
-                                </div>
-                                <div class="project-meta">
-                                    <ion-icon name="calendar-outline"></ion-icon>
-                                    Deadline: April 15, 2024
-                                </div>
-                                <div class="project-team">
-                                    <div class="team-label">Assigned Team</div>
-                                    <div class="no-team">No team members assigned</div>
-                                </div>
-                                <div class="project-actions">
-                                    <button class="btn btn-primary btn-small">
-                                        <ion-icon name="arrow-forward-outline"></ion-icon>
-                                        Start
-                                    </button>
-                                    <button class="btn btn-secondary btn-small">
-                                        <ion-icon name="people-outline"></ion-icon>
-                                        Assign
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- In Flight Column -->
-                    <div class="kanban-column">
-                        <div class="column-header in-flight">
-                            <ion-icon name="rocket-outline"></ion-icon>
-                            <h3>In Flight</h3>
-                            <span class="count" id="inFlightCount">3</span>
-                        </div>
-                        <div class="column-content" id="inFlightColumn">
-                            <!-- Project Card 3 -->
-                            <div class="project-card">
-                                <div class="project-header">
-                                    <h4>E-commerce Platform</h4>
-                                    <div class="client-name">
-                                        <ion-icon name="business-outline"></ion-icon>
-                                        RetailHub Co.
-                                    </div>
-                                </div>
-                                <div class="project-meta">
-                                    <ion-icon name="calendar-outline"></ion-icon>
-                                    Deadline: March 25, 2024
-                                </div>
-                                <div class="project-team">
-                                    <div class="team-label">Assigned Team</div>
-                                    <div class="team-members">
-                                        <span class="team-member">Sarah Mitchell</span>
-                                        <span class="team-member">Emily Rodriguez</span>
-                                        <span class="team-member">David Kumar</span>
-                                    </div>
-                                </div>
-                                <div class="project-actions">
-                                    <button class="btn btn-secondary btn-small">
-                                        <ion-icon name="arrow-back-outline"></ion-icon>
-                                        Back
-                                    </button>
-                                    <button class="btn btn-primary btn-small">
-                                        <ion-icon name="checkmark-outline"></ion-icon>
-                                        Deliver
-                                    </button>
-                                    <button class="btn btn-secondary btn-small">
-                                        <ion-icon name="people-outline"></ion-icon>
-                                        Team
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Project Card 4 -->
-                            <div class="project-card">
-                                <div class="project-header">
-                                    <h4>Brand Identity Package</h4>
-                                    <div class="client-name">
-                                        <ion-icon name="business-outline"></ion-icon>
-                                        Stellar Brands
-                                    </div>
-                                </div>
-                                <div class="project-meta">
-                                    <ion-icon name="calendar-outline"></ion-icon>
-                                    Deadline: March 20, 2024
-                                </div>
-                                <div class="project-team">
-                                    <div class="team-label">Assigned Team</div>
-                                    <div class="team-members">
-                                        <span class="team-member">Marcus Chen</span>
-                                    </div>
-                                </div>
-                                <div class="project-actions">
-                                    <button class="btn btn-secondary btn-small">
-                                        <ion-icon name="arrow-back-outline"></ion-icon>
-                                        Back
-                                    </button>
-                                    <button class="btn btn-primary btn-small">
-                                        <ion-icon name="checkmark-outline"></ion-icon>
-                                        Deliver
-                                    </button>
-                                    <button class="btn btn-secondary btn-small">
-                                        <ion-icon name="people-outline"></ion-icon>
-                                        Team
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Project Card 5 -->
-                            <div class="project-card">
-                                <div class="project-header">
-                                    <h4>CRM Integration</h4>
-                                    <div class="client-name">
-                                        <ion-icon name="business-outline"></ion-icon>
-                                        SalesPro Systems
-                                    </div>
-                                </div>
-                                <div class="project-meta">
-                                    <ion-icon name="calendar-outline"></ion-icon>
-                                    Deadline: April 5, 2024
-                                </div>
-                                <div class="project-team">
-                                    <div class="team-label">Assigned Team</div>
-                                    <div class="team-members">
-                                        <span class="team-member">James Park</span>
-                                    </div>
-                                </div>
-                                <div class="project-actions">
-                                    <button class="btn btn-secondary btn-small">
-                                        <ion-icon name="arrow-back-outline"></ion-icon>
-                                        Back
-                                    </button>
-                                    <button class="btn btn-primary btn-small">
-                                        <ion-icon name="checkmark-outline"></ion-icon>
-                                        Deliver
-                                    </button>
-                                    <button class="btn btn-secondary btn-small">
-                                        <ion-icon name="people-outline"></ion-icon>
-                                        Team
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Delivered Column -->
-                    <div class="kanban-column">
-                        <div class="column-header delivered">
-                            <ion-icon name="checkmark-done-outline"></ion-icon>
-                            <h3>Delivered</h3>
-                            <span class="count" id="deliveredCount">2</span>
-                        </div>
-                        <div class="column-content" id="deliveredColumn">
-                            <!-- Project Card 6 -->
-                            <div class="project-card">
-                                <div class="project-header">
-                                    <h4>Marketing Website</h4>
-                                    <div class="client-name">
-                                        <ion-icon name="business-outline"></ion-icon>
-                                        GrowthMax Agency
-                                    </div>
-                                </div>
-                                <div class="project-meta">
-                                    <ion-icon name="calendar-outline"></ion-icon>
-                                    Completed: March 10, 2024
-                                </div>
-                                <div class="project-team">
-                                    <div class="team-label">Team Members</div>
-                                    <div class="team-members">
-                                        <span class="team-member">Lisa Anderson</span>
-                                        <span class="team-member">Ryan Walsh</span>
-                                    </div>
-                                </div>
-                                <div class="project-actions">
-                                    <button class="btn btn-secondary btn-small">
-                                        <ion-icon name="arrow-back-outline"></ion-icon>
-                                        Reopen
-                                    </button>
-                                    <button class="btn btn-danger btn-small">
-                                        <ion-icon name="archive-outline"></ion-icon>
-                                        Archive
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Project Card 7 -->
-                            <div class="project-card">
-                                <div class="project-header">
-                                    <h4>API Documentation Portal</h4>
-                                    <div class="client-name">
-                                        <ion-icon name="business-outline"></ion-icon>
-                                        DevTools Inc.
-                                    </div>
-                                </div>
-                                <div class="project-meta">
-                                    <ion-icon name="calendar-outline"></ion-icon>
-                                    Completed: March 5, 2024
-                                </div>
-                                <div class="project-team">
-                                    <div class="team-label">Team Members</div>
-                                    <div class="team-members">
-                                        <span class="team-member">Sarah Mitchell</span>
-                                    </div>
-                                </div>
-                                <div class="project-actions">
-                                    <button class="btn btn-secondary btn-small">
-                                        <ion-icon name="arrow-back-outline"></ion-icon>
-                                        Reopen
-                                    </button>
-                                    <button class="btn btn-danger btn-small">
-                                        <ion-icon name="archive-outline"></ion-icon>
-                                        Archive
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Module C: Resource Allocation Modal -->
-        <div class="form-modal" id="allocationModal">
-            <div class="modal-content allocation-modal">
-                <div class="modal-header">
-                    <h3>
-                        <ion-icon name="link-outline"></ion-icon>
-                        Assign Resources
-                    </h3>
-                    <button class="close-btn" id="closeAllocationModal">
-                        <ion-icon name="close-outline"></ion-icon>
-                    </button>
-                </div>
-                <div class="allocation-content">
-                    <div class="project-info">
-                        <h4 id="allocationProjectTitle">E-commerce Platform</h4>
-                        <p id="allocationProjectClient">
-                            <ion-icon name="business-outline"></ion-icon>
-                            RetailHub Co.
-                        </p>
-                    </div>
-                    <div class="allocation-section">
-                        <h4>
-                            <ion-icon name="add-outline"></ion-icon>
-                            Assign Team Member
-                        </h4>
-                        <div class="form-group">
-                            <select id="talentSelect">
-                                <option value="">Select team member...</option>
-                                <option value="1">Marcus Chen - Designer</option>
-                                <option value="2">Lisa Anderson - Developer</option>
-                                <option value="3">Ryan Walsh - QA</option>
-                            </select>
-                            <button class="btn btn-secondary" id="assignTalentBtn">
-                                <ion-icon name="person-add-outline"></ion-icon>
-                                Assign
-                            </button>
-                        </div>
-                    </div>
-                    <div class="allocation-section">
-                        <h4>
-                            <ion-icon name="people-outline"></ion-icon>
-                            Assigned Team Members
-                        </h4>
-                        <div class="assigned-list" id="assignedTalentList">
-                            <!-- Sample Assigned Members -->
-                            <div class="assigned-item">
-                                <div class="assigned-info">
-                                    <span class="name">Sarah Mitchell</span>
-                                    <span class="role">Developer - $85/hr</span>
-                                </div>
-                                <button class="btn btn-danger btn-small">
-                                    <ion-icon name="close-outline"></ion-icon>
-                                    Remove
-                                </button>
-                            </div>
-                            <div class="assigned-item">
-                                <div class="assigned-info">
-                                    <span class="name">Emily Rodriguez</span>
-                                    <span class="role">PM - $95/hr</span>
-                                </div>
-                                <button class="btn btn-danger btn-small">
-                                    <ion-icon name="close-outline"></ion-icon>
-                                    Remove
-                                </button>
-                            </div>
-                            <div class="assigned-item">
-                                <div class="assigned-info">
-                                    <span class="name">David Kumar</span>
-                                    <span class="role">Designer - $80/hr</span>
-                                </div>
-                                <button class="btn btn-danger btn-small">
-                                    <ion-icon name="close-outline"></ion-icon>
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
-                        <div class="empty-state small" id="assignedEmptyState">
-                            <ion-icon name="people-outline"></ion-icon>
-                            <p>No team members assigned yet.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-content">
+          <div class="logo">
+            <ion-icon name="git-network-outline"></ion-icon>
+            <h1>NexusFlow</h1>
+          </div>
+          <p class="tagline">Agency HR & Project Management</p>
         </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Module A: HR Talent Roster -->
+        <section class="module hr-module">
+          <div class="module-header">
+            <h2>
+              <ion-icon name="people-outline"></ion-icon>
+              HR Talent Roster
+            </h2>
+            <button class="btn btn-primary" id="addTalentBtn">
+              <ion-icon name="person-add-outline"></ion-icon>
+              Add Talent
+            </button>
+          </div>
+
+          <!-- Roster Metrics -->
+          <div class="metrics-panel">
+            <div class="metric-card">
+              <ion-icon name="people-circle-outline"></ion-icon>
+              <div class="metric-content">
+                <span class="metric-label">Total Headcount</span>
+                <span class="metric-value" id="totalHeadcount">8</span>
+              </div>
+            </div>
+            <div class="metric-card">
+              <ion-icon name="briefcase-outline"></ion-icon>
+              <div class="metric-content">
+                <span class="metric-label">Active Utilization Rate</span>
+                <span class="metric-value" id="utilizationRate">62.5%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Talent Registration Form (Hidden by default) -->
+          <div class="form-modal" id="talentFormModal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>Register New Talent</h3>
+                <button class="close-btn" id="closeTalentForm">
+                  <ion-icon name="close-outline"></ion-icon>
+                </button>
+              </div>
+              <form id="talentForm">
+                <div class="form-group">
+                  <label for="talentName">
+                    <ion-icon name="person-outline"></ion-icon>
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    id="talentName"
+                    required
+                    placeholder="Enter full name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="talentRole">
+                    <ion-icon name="code-slash-outline"></ion-icon>
+                    Core Role
+                  </label>
+                  <select id="talentRole" required>
+                    <option value="">Select role</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="talentStatus">
+                    <ion-icon name="radio-button-on-outline"></ion-icon>
+                    Initial Status
+                  </label>
+                  <select id="talentStatus" required>
+                    <option value="">Select status</option>
+                    <option value="Available">Available</option>
+                    <option value="On Leave">On Leave</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="talentRate">
+                    <ion-icon name="cash-outline"></ion-icon>
+                    Pay Rate (per hour)
+                  </label>
+                  <input
+                    type="number"
+                    id="talentRate"
+                    required
+                    placeholder="0"
+                    min="0"
+                    step="0.01"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                  <ion-icon name="checkmark-outline"></ion-icon>
+                  Register Talent
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Talent Roster Table -->
+          <div class="talent-roster">
+            <table class="roster-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Role</th>
+                  <th>Rate/Hour</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="talentTableBody">
+                <!-- Dummy Content -->
+                <tr>
+                  <td>Sarah Mitchell</td>
+                  <td>Developer</td>
+                  <td>$85.00</td>
+                  <td>
+                    <span class="status-badge assigned">
+                      <ion-icon name="checkmark-circle"></ion-icon>
+                      Assigned
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-secondary btn-small">
+                        <ion-icon name="pencil-outline"></ion-icon>
+                        Edit
+                      </button>
+                      <button class="btn btn-danger btn-small">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Marcus Chen</td>
+                  <td>Designer</td>
+                  <td>$75.00</td>
+                  <td>
+                    <span class="status-badge available">
+                      <ion-icon name="radio-button-on"></ion-icon>
+                      Available
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-secondary btn-small">
+                        <ion-icon name="pencil-outline"></ion-icon>
+                        Edit
+                      </button>
+                      <button class="btn btn-danger btn-small">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Emily Rodriguez</td>
+                  <td>PM</td>
+                  <td>$95.00</td>
+                  <td>
+                    <span class="status-badge assigned">
+                      <ion-icon name="checkmark-circle"></ion-icon>
+                      Assigned
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-secondary btn-small">
+                        <ion-icon name="pencil-outline"></ion-icon>
+                        Edit
+                      </button>
+                      <button class="btn btn-danger btn-small">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>James Park</td>
+                  <td>Developer</td>
+                  <td>$90.00</td>
+                  <td>
+                    <span class="status-badge assigned">
+                      <ion-icon name="checkmark-circle"></ion-icon>
+                      Assigned
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-secondary btn-small">
+                        <ion-icon name="pencil-outline"></ion-icon>
+                        Edit
+                      </button>
+                      <button class="btn btn-danger btn-small">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Olivia Thompson</td>
+                  <td>QA</td>
+                  <td>$70.00</td>
+                  <td>
+                    <span class="status-badge on-leave">
+                      <ion-icon name="time-outline"></ion-icon>
+                      On Leave
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-secondary btn-small">
+                        <ion-icon name="pencil-outline"></ion-icon>
+                        Edit
+                      </button>
+                      <button class="btn btn-danger btn-small">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>David Kumar</td>
+                  <td>Designer</td>
+                  <td>$80.00</td>
+                  <td>
+                    <span class="status-badge assigned">
+                      <ion-icon name="checkmark-circle"></ion-icon>
+                      Assigned
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-secondary btn-small">
+                        <ion-icon name="pencil-outline"></ion-icon>
+                        Edit
+                      </button>
+                      <button class="btn btn-danger btn-small">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Lisa Anderson</td>
+                  <td>Developer</td>
+                  <td>$88.00</td>
+                  <td>
+                    <span class="status-badge available">
+                      <ion-icon name="radio-button-on"></ion-icon>
+                      Available
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-secondary btn-small">
+                        <ion-icon name="pencil-outline"></ion-icon>
+                        Edit
+                      </button>
+                      <button class="btn btn-danger btn-small">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Ryan Walsh</td>
+                  <td>QA</td>
+                  <td>$72.00</td>
+                  <td>
+                    <span class="status-badge available">
+                      <ion-icon name="radio-button-on"></ion-icon>
+                      Available
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn btn-secondary btn-small">
+                        <ion-icon name="pencil-outline"></ion-icon>
+                        Edit
+                      </button>
+                      <button class="btn btn-danger btn-small">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="empty-state" id="talentEmptyState">
+              <ion-icon name="person-add-outline"></ion-icon>
+              <p>
+                No talent registered yet. Click "Add Talent" to get started.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Module B: Project Pipeline (Kanban) -->
+        <section class="module project-module">
+          <div class="module-header">
+            <h2>
+              <ion-icon name="grid-outline"></ion-icon>
+              Project Pipeline
+            </h2>
+            <button class="btn btn-primary" id="addProjectBtn">
+              <ion-icon name="add-circle-outline"></ion-icon>
+              New Project
+            </button>
+          </div>
+
+          <!-- Project Initialization Form (Hidden by default) -->
+          <div class="form-modal" id="projectFormModal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>Initialize New Project</h3>
+                <button class="close-btn" id="closeProjectForm">
+                  <ion-icon name="close-outline"></ion-icon>
+                </button>
+              </div>
+              <form id="projectForm">
+                <div class="form-group">
+                  <label for="projectTitle">
+                    <ion-icon name="document-text-outline"></ion-icon>
+                    Project Title
+                  </label>
+                  <input
+                    type="text"
+                    id="projectTitle"
+                    required
+                    placeholder="Enter project title"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="clientName">
+                    <ion-icon name="business-outline"></ion-icon>
+                    Client Name
+                  </label>
+                  <input
+                    type="text"
+                    id="clientName"
+                    required
+                    placeholder="Enter client name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="projectDeadline">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    Deadline Date
+                  </label>
+                  <input type="date" id="projectDeadline" required />
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">
+                  <ion-icon name="checkmark-outline"></ion-icon>
+                  Initialize Project
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Kanban Board -->
+          <div class="kanban-board">
+            <!-- Backlog Column -->
+            <div class="kanban-column">
+              <div class="column-header backlog">
+                <ion-icon name="file-tray-outline"></ion-icon>
+                <h3>Backlog</h3>
+                <span class="count" id="backlogCount">2</span>
+              </div>
+              <div class="column-content" id="backlogColumn">
+                <!-- Project Card 1 -->
+                <div class="project-card">
+                  <div class="project-header">
+                    <h4>Website Redesign</h4>
+                    <div class="client-name">
+                      <ion-icon name="business-outline"></ion-icon>
+                      TechStart Inc.
+                    </div>
+                  </div>
+                  <div class="project-meta">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    Deadline: March 30, 2024
+                  </div>
+                  <div class="project-team">
+                    <div class="team-label">Assigned Team</div>
+                    <div class="no-team">No team members assigned</div>
+                  </div>
+                  <div class="project-actions">
+                    <button class="btn btn-primary btn-small">
+                      <ion-icon name="arrow-forward-outline"></ion-icon>
+                      Start
+                    </button>
+                    <button class="btn btn-secondary btn-small">
+                      <ion-icon name="people-outline"></ion-icon>
+                      Assign
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="project-card">
+                  <div class="project-header">
+                    <h4>Mobile App Development</h4>
+                    <div class="client-name">
+                      <ion-icon name="business-outline"></ion-icon>
+                      FinanceFlow Ltd.
+                    </div>
+                  </div>
+                  <div class="project-meta">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    Deadline: April 15, 2024
+                  </div>
+                  <div class="project-team">
+                    <div class="team-label">Assigned Team</div>
+                    <div class="no-team">No team members assigned</div>
+                  </div>
+                  <div class="project-actions">
+                    <button class="btn btn-primary btn-small">
+                      <ion-icon name="arrow-forward-outline"></ion-icon>
+                      Start
+                    </button>
+                    <button class="btn btn-secondary btn-small">
+                      <ion-icon name="people-outline"></ion-icon>
+                      Assign
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- In Flight Column -->
+            <div class="kanban-column">
+              <div class="column-header in-flight">
+                <ion-icon name="rocket-outline"></ion-icon>
+                <h3>In Flight</h3>
+                <span class="count" id="inFlightCount">3</span>
+              </div>
+              <div class="column-content" id="inFlightColumn">
+                <!-- Project Card 3 -->
+                <div class="project-card">
+                  <div class="project-header">
+                    <h4>E-commerce Platform</h4>
+                    <div class="client-name">
+                      <ion-icon name="business-outline"></ion-icon>
+                      RetailHub Co.
+                    </div>
+                  </div>
+                  <div class="project-meta">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    Deadline: March 25, 2024
+                  </div>
+                  <div class="project-team">
+                    <div class="team-label">Assigned Team</div>
+                    <div class="team-members">
+                      <span class="team-member">Sarah Mitchell</span>
+                      <span class="team-member">Emily Rodriguez</span>
+                      <span class="team-member">David Kumar</span>
+                    </div>
+                  </div>
+                  <div class="project-actions">
+                    <button class="btn btn-secondary btn-small">
+                      <ion-icon name="arrow-back-outline"></ion-icon>
+                      Back
+                    </button>
+                    <button class="btn btn-primary btn-small">
+                      <ion-icon name="checkmark-outline"></ion-icon>
+                      Deliver
+                    </button>
+                    <button class="btn btn-secondary btn-small">
+                      <ion-icon name="people-outline"></ion-icon>
+                      Team
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Project Card 4 -->
+                <div class="project-card">
+                  <div class="project-header">
+                    <h4>Brand Identity Package</h4>
+                    <div class="client-name">
+                      <ion-icon name="business-outline"></ion-icon>
+                      Stellar Brands
+                    </div>
+                  </div>
+                  <div class="project-meta">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    Deadline: March 20, 2024
+                  </div>
+                  <div class="project-team">
+                    <div class="team-label">Assigned Team</div>
+                    <div class="team-members">
+                      <span class="team-member">Marcus Chen</span>
+                    </div>
+                  </div>
+                  <div class="project-actions">
+                    <button class="btn btn-secondary btn-small">
+                      <ion-icon name="arrow-back-outline"></ion-icon>
+                      Back
+                    </button>
+                    <button class="btn btn-primary btn-small">
+                      <ion-icon name="checkmark-outline"></ion-icon>
+                      Deliver
+                    </button>
+                    <button class="btn btn-secondary btn-small">
+                      <ion-icon name="people-outline"></ion-icon>
+                      Team
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Project Card 5 -->
+                <div class="project-card">
+                  <div class="project-header">
+                    <h4>CRM Integration</h4>
+                    <div class="client-name">
+                      <ion-icon name="business-outline"></ion-icon>
+                      SalesPro Systems
+                    </div>
+                  </div>
+                  <div class="project-meta">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    Deadline: April 5, 2024
+                  </div>
+                  <div class="project-team">
+                    <div class="team-label">Assigned Team</div>
+                    <div class="team-members">
+                      <span class="team-member">James Park</span>
+                    </div>
+                  </div>
+                  <div class="project-actions">
+                    <button class="btn btn-secondary btn-small">
+                      <ion-icon name="arrow-back-outline"></ion-icon>
+                      Back
+                    </button>
+                    <button class="btn btn-primary btn-small">
+                      <ion-icon name="checkmark-outline"></ion-icon>
+                      Deliver
+                    </button>
+                    <button class="btn btn-secondary btn-small">
+                      <ion-icon name="people-outline"></ion-icon>
+                      Team
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Delivered Column -->
+            <div class="kanban-column">
+              <div class="column-header delivered">
+                <ion-icon name="checkmark-done-outline"></ion-icon>
+                <h3>Delivered</h3>
+                <span class="count" id="deliveredCount">2</span>
+              </div>
+              <div class="column-content" id="deliveredColumn">
+                <!-- Project Card 6 -->
+                <div class="project-card">
+                  <div class="project-header">
+                    <h4>Marketing Website</h4>
+                    <div class="client-name">
+                      <ion-icon name="business-outline"></ion-icon>
+                      GrowthMax Agency
+                    </div>
+                  </div>
+                  <div class="project-meta">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    Completed: March 10, 2024
+                  </div>
+                  <div class="project-team">
+                    <div class="team-label">Team Members</div>
+                    <div class="team-members">
+                      <span class="team-member">Lisa Anderson</span>
+                      <span class="team-member">Ryan Walsh</span>
+                    </div>
+                  </div>
+                  <div class="project-actions">
+                    <button class="btn btn-secondary btn-small">
+                      <ion-icon name="arrow-back-outline"></ion-icon>
+                      Reopen
+                    </button>
+                    <button class="btn btn-danger btn-small">
+                      <ion-icon name="archive-outline"></ion-icon>
+                      Archive
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Project Card 7 -->
+                <div class="project-card">
+                  <div class="project-header">
+                    <h4>API Documentation Portal</h4>
+                    <div class="client-name">
+                      <ion-icon name="business-outline"></ion-icon>
+                      DevTools Inc.
+                    </div>
+                  </div>
+                  <div class="project-meta">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    Completed: March 5, 2024
+                  </div>
+                  <div class="project-team">
+                    <div class="team-label">Team Members</div>
+                    <div class="team-members">
+                      <span class="team-member">Sarah Mitchell</span>
+                    </div>
+                  </div>
+                  <div class="project-actions">
+                    <button class="btn btn-secondary btn-small">
+                      <ion-icon name="arrow-back-outline"></ion-icon>
+                      Reopen
+                    </button>
+                    <button class="btn btn-danger btn-small">
+                      <ion-icon name="archive-outline"></ion-icon>
+                      Archive
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Module C: Resource Allocation Modal -->
+      <div class="form-modal" id="allocationModal">
+        <div class="modal-content allocation-modal">
+          <div class="modal-header">
+            <h3>
+              <ion-icon name="link-outline"></ion-icon>
+              Assign Resources
+            </h3>
+            <button class="close-btn" id="closeAllocationModal">
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+          </div>
+          <div class="allocation-content">
+            <div class="project-info">
+              <h4 id="allocationProjectTitle">E-commerce Platform</h4>
+              <p id="allocationProjectClient">
+                <ion-icon name="business-outline"></ion-icon>
+                RetailHub Co.
+              </p>
+            </div>
+            <div class="allocation-section">
+              <h4>
+                <ion-icon name="add-outline"></ion-icon>
+                Assign Team Member
+              </h4>
+              <div class="form-group">
+                <select id="talentSelect">
+                  <option value="">Select team member...</option>
+                  <option value="1">Marcus Chen - Designer</option>
+                  <option value="2">Lisa Anderson - Developer</option>
+                  <option value="3">Ryan Walsh - QA</option>
+                </select>
+                <button class="btn btn-secondary" id="assignTalentBtn">
+                  <ion-icon name="person-add-outline"></ion-icon>
+                  Assign
+                </button>
+              </div>
+            </div>
+            <div class="allocation-section">
+              <h4>
+                <ion-icon name="people-outline"></ion-icon>
+                Assigned Team Members
+              </h4>
+              <div class="assigned-list" id="assignedTalentList">
+                <!-- Sample Assigned Members -->
+                <div class="assigned-item">
+                  <div class="assigned-info">
+                    <span class="name">Sarah Mitchell</span>
+                    <span class="role">Developer - $85/hr</span>
+                  </div>
+                  <button class="btn btn-danger btn-small">
+                    <ion-icon name="close-outline"></ion-icon>
+                    Remove
+                  </button>
+                </div>
+                <div class="assigned-item">
+                  <div class="assigned-info">
+                    <span class="name">Emily Rodriguez</span>
+                    <span class="role">PM - $95/hr</span>
+                  </div>
+                  <button class="btn btn-danger btn-small">
+                    <ion-icon name="close-outline"></ion-icon>
+                    Remove
+                  </button>
+                </div>
+                <div class="assigned-item">
+                  <div class="assigned-info">
+                    <span class="name">David Kumar</span>
+                    <span class="role">Designer - $80/hr</span>
+                  </div>
+                  <button class="btn btn-danger btn-small">
+                    <ion-icon name="close-outline"></ion-icon>
+                    Remove
+                  </button>
+                </div>
+              </div>
+              <div class="empty-state small" id="assignedEmptyState">
+                <ion-icon name="people-outline"></ion-icon>
+                <p>No team members assigned yet.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-        <script src="./js/variables.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/variables.js"></script>
     <script src="./js/functions.js"></script>
     <script src="./js/script.js"></script>
-</body>
+  </body>
 </html>

@@ -17,3 +17,14 @@ const projectFormModal = document.getElementById('projectFormModal')
 const projectFormBtn = document.querySelector('#projectForm button')
 
 const closeProjectForm = document.getElementById('closeProjectForm')
+
+
+// role selection 
+let rolesSelection = document.getElementById('talentRole')
+
+let talentsList = document.getElementById('talentTableBody');
+
+
+// head count 
+
+let headCount = document.getElementById('totalHeadcount');
