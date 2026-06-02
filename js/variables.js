@@ -1,4 +1,9 @@
-// talent form 
+// talent form
+
+const talentName = document.getElementById('talentName');
+const talentRole = document.getElementById('talentRole');
+const talentStatus = document.getElementById('talentStatus');
+const talentRate = document.getElementById('talentRate');
 const addTalentBtn = document.getElementById('addTalentBtn')
 
 const talentFormModal = document.getElementById('talentFormModal')
@@ -28,3 +33,8 @@ let talentsList = document.getElementById('talentTableBody');
 // head count 
 
 let headCount = document.getElementById('totalHeadcount');
+
+
+let backlogsWrap = document.getElementById('backlogColumn')
+let inFlightsWrap = document.getElementById('inFlightColumn')
+let deliveredWrap = document.getElementById('deliveredColumn')

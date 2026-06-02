@@ -1,42 +1,55 @@
 // register form active events
-
-
-talentFormBtn.addEventListener("click", function () {
-  isInactive(talentFormModal);
+addTalentBtn.addEventListener("click", function () {
+  isActive(talentFormModal);
 });
 closeTalentForm.addEventListener("click", function () {
   isInactive(talentFormModal);
-});
-addTalentBtn.addEventListener("click", function () {
-  isActive(talentFormModal);
 });
 
 addProjectBtn.addEventListener("click", function () {
   isActive(projectFormModal);
 });
-projectFormBtn.addEventListener("click", function () {
-  isInactive(projectFormModal);
-});
 closeProjectForm.addEventListener("click", function () {
   isInactive(projectFormModal);
 });
-
-
+// projectFormBtn.addEventListener("click", function () {
+//   isInactive(projectFormModal);
+// });
 
 // adding roles to select fields
-for(role of roles){
-    let roleOption = document.createElement('option')
-    roleOption.setAttribute('value', role);
-    roleOption.innerText = role;
-    rolesSelection.appendChild(roleOption)
+for (role of roles) {
+  let roleOption = document.createElement("option");
+  roleOption.setAttribute("value", role);
+  roleOption.innerText = role;
+  rolesSelection.appendChild(roleOption);
 }
 
-// adding talents 
-
+// talents output
 talentsList.innerHTML = "";
 
-for(talent of talents){
-  addTalent(talent)
+for (talent of talents) {
+  addTalent(talent);
 }
+talentCount();
 
-headCount.innerText = talents.length
+// add talent
+talentFormBtn.addEventListener("click", function () {
+  if (
+    talentName.value != "" &&
+    talentRole.value != "" &&
+    talentStatus.value != "" &&
+    talentRate.value != ""
+  ) {
+    let newTalent = {
+      id: self.crypto.randomUUID(),
+      name: talentName.value,
+      role: talentRole.value,
+      ratePerHour: parseFloat(talentRate.value),
+      status: talentStatus.value,
+    };
+    talents.push(newTalent);
+    addTalent(newTalent);
+    talentCount();
+    isInactive(talentFormModal);
+  }
+});

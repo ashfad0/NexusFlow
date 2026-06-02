@@ -1,19 +1,22 @@
-// form toggles 
+// form toggles
 
-function isActive(element){
-    element.classList.add('active')
+function isActive(element) {
+  element.classList.add("active");
 }
 
-function isInactive(element){
-    element.classList.remove('active')
+function isInactive(element) {
+  element.classList.remove("active");
 }
 
+// talent count
+function talentCount() {
+  headCount.innerText = talents.length;
+}
 
-
-function addTalent(person){
-
-    let statusClass = person.status.toLowerCase();
-        let talentTr = `<tr>
+// talents output function
+function addTalent(person) {
+  let statusClass = person.status.toLowerCase().replace(" ", "-");
+  let talentTr = `<tr id="${person.id}">
                   <td>${person.name}</td>
                   <td>${person.role}</td>
                   <td>$${person.ratePerHour}</td>
@@ -34,8 +37,20 @@ function addTalent(person){
                       </button>
                     </div>
                   </td>
-                </tr>`
+                </tr>`;
 
-                talentsList.insertAdjacentHTML('beforeend', talentTr)
+  talentsList.insertAdjacentHTML("beforeend", talentTr);
 
+  //   remove talent
+  talentsList.lastElementChild
+    .querySelector(".btn-danger")
+    .addEventListener("click", function () {
+      talents = talents.filter((talent) => talent.id != person.id);
+      document.getElementById(person.id).remove();
+      console.log("removed : " + person.name);
+      talentCount();
+    });
 }
+
+
+console.log(projectStatus[1])
