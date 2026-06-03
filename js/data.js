@@ -8,7 +8,7 @@ let talents = [
     name: "Sarah Mitchell",
     role: "Developer",
     ratePerHour: 85.00,
-    status: "Assigned"
+    status: "Available"
   },
   {
     id : "njkfgehrt398whtfg4",
@@ -22,21 +22,21 @@ let talents = [
     name: "Emily Rodriguez",
     role: "PM",
     ratePerHour: 95.00,
-    status: "Assigned"
+    status: "Available"
   },
   {
     id : "njkf39jtyu8whtfg4",
     name: "James Park",
     role: "Developer",
     ratePerHour: 90.00,
-    status: "Assigned"
+    status: "Available"
   },
   {
     id : "njkf39f3ewq8whtfg4",
     name: "David Kumar",
     role: "Designer",
     ratePerHour: 80.00,
-    status: "Assigned"
+    status: "Available"
   },
   {
     id : "njkf398whjyhtfg4",

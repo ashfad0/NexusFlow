@@ -63,7 +63,7 @@
 
           <!-- Talent Registration Form (Hidden by default) -->
           <div class="form-modal" id="talentFormModal">
-            <div class="modal-content">
+              <div class="modal-content">
               <div class="modal-header">
                 <h3>Register New Talent</h3>
                 <button class="close-btn" id="closeTalentForm">
@@ -124,7 +124,69 @@
               </form>
             </div>
           </div>
-
+          <!-- Talent Update Form (Hidden by default) -->
+          <div class="form-modal" id="editTalentModal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>Update Talent Details</h3>
+                <button class="close-btn" id="closeEditTalentForm">
+                  <ion-icon name="close-outline"></ion-icon>
+                </button>
+              </div>
+              <form id="editTalentForm">
+                <div class="form-group">
+                  <label for="editTalentName">
+                    <ion-icon name="person-outline"></ion-icon>
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    id="editTalentName"
+                    required
+                    placeholder="Update full name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="editTalentRole">
+                    <ion-icon name="code-slash-outline"></ion-icon>
+                    Core Role
+                  </label>
+                  <select id="editTalentRole" required>
+                    <option value="">Select role</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="editTalentStatus">
+                    <ion-icon name="radio-button-on-outline"></ion-icon>
+                    Current Status
+                  </label>
+                  <select id="editTalentStatus" required>
+                    <option value="">Select status</option>
+                    <option value="Available">Available</option>
+                    <option value="On Leave">On Leave</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="editTalentRate">
+                    <ion-icon name="cash-outline"></ion-icon>
+                    Pay Rate (per hour)
+                  </label>
+                  <input
+                    type="number"
+                    id="editTalentRate"
+                    required
+                    placeholder="0.00"
+                    min="0"
+                    step="0.01"
+                  />
+                </div>
+                <button type="button" class="btn btn-primary btn-block edit-btn" id="saveTalentChangesBtn">
+                  <ion-icon name="save-outline"></ion-icon>
+                  Save Changes
+                </button>
+              </form>
+            </div>
+          </div>
           <!-- Talent Roster Table -->
           <div class="talent-roster">
             <table class="roster-table">

@@ -22,18 +22,18 @@ function addTalent(person) {
                   <td>$${person.ratePerHour}</td>
                   <td>
                     <span class="status-badge ${statusClass}">
-                      <ion-icon name="checkmark-circle" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm108.25 138.29l-134.4 160a16 16 0 01-12 5.71h-.27a16 16 0 01-11.89-5.3l-57.6-64a16 16 0 1123.78-21.4l45.29 50.32 122.59-145.91a16 16 0 0124.5 20.58z"></path></svg></div></template></ion-icon>
+                      <ion-icon name="checkmark-circle"></ion-icon>
                       ${person.status}
                     </span>
                   </td>
                   <td>
                     <div class="action-buttons">
-                      <button class="btn btn-secondary btn-small">
-                        <ion-icon name="pencil-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path stroke-linecap="round" stroke-linejoin="round" d="M364.13 125.25L87 403l-23 45 44.99-23 277.76-277.13-22.62-22.62zM420.69 68.69l-22.62 22.62 22.62 22.63 22.62-22.63a16 16 0 000-22.62h0a16 16 0 00-22.62 0z" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>
+                      <button class="btn btn-secondary btn-small edit-btn">
+                        <ion-icon name="pencil-outline"></ion-icon>
                         Edit
                       </button>
-                      <button class="btn btn-danger btn-small">
-                        <ion-icon name="trash-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><path d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path><path stroke-linecap="round" stroke-miterlimit="10" d="M80 112h352" class="ionicon-stroke-width"></path><path d="M192 112V72h0a23.93 23.93 0 0124-24h80a23.93 23.93 0 0124 24h0v40M256 176v224M184 176l8 224M328 176l-8 224" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon>
+                      <button class="btn btn-danger btn-small dlt-btn">
+                        <ion-icon name="trash-outline"></ion-icon>
                       </button>
                     </div>
                   </td>
@@ -43,14 +43,107 @@ function addTalent(person) {
 
   //   remove talent
   talentsList.lastElementChild
-    .querySelector(".btn-danger")
+    .querySelector(".dlt-btn")
     .addEventListener("click", function () {
       talents = talents.filter((talent) => talent.id != person.id);
       document.getElementById(person.id).remove();
       console.log("removed : " + person.name);
       talentCount();
     });
+
+  // edit talent
+  talentsList.lastElementChild.querySelector('.edit-btn').addEventListener('click', function () {
+    updateTalentName.value = person.name
+    updateTalentRole.value = person.role
+    updateTalentStatus.value = person.status
+    updateTalentRate.value = person.ratePerHour
+    isActive(updateTalentFormModal);
+
+    updateTalentFormBtn.addEventListener('click', function () {
+
+      if (
+        updateTalentName.value != "" &&
+        updateTalentRole.value != "" &&
+        updateTalentStatus.value != "" &&
+        updateTalentRate.value != ""
+      ) {
+        person.name = talentName.value
+        person.role = talentRole.value
+        person.status = talentStatus.value
+        person.ratePerHour = talentRate.value
+        isInactive(updateTalentFormModal);
+
+        //   name: talentName.value,
+        // role: talentRole.value,
+        // ratePerHour: parseFloat(talentRate.value),
+        // status: talentStatus.value,
+      }
+    })
+  })
+
 }
 
 
-console.log(projectStatus[1])
+// console.log(projectStatus[1])
+
+function addProjet(project, wrapper) {
+  let projectCard = `<div class="project-card">
+                  <div class="project-header">
+                    <h4>${project.project_name}</h4>
+                    <div class="client-name">
+                     <ion-icon name="business-outline"></ion-icon>
+                      ${project.client}
+                    </div>
+                  </div>
+                  <div class="project-meta">
+                   <ion-icon name="calendar-outline"></ion-icon>
+                    Deadline: ${project.date}
+                  </div>
+                  <div class="project-team">
+                    <div class="team-label">Assigned Team</div>
+                    <div class="no-team">${project.assigned_team}</div>
+                  </div>
+                  <div class="project-actions">
+                  <button class="btn btn-secondary btn-small back-btn">
+                      <ion-icon name="arrow-back-outline"></ion-icon>
+                      Back
+                    </button>
+                    <button class="btn btn-primary btn-small start-btn">
+                     <ion-icon name="arrow-forward-outline"></ion-icon>
+                      Start
+                    </button>
+                    <button class="btn btn-secondary btn-small assign-btn">
+                      <ion-icon name="people-outline"></ion-icon>
+                      Assign
+                    </button>
+                    <button class="btn btn-secondary btn-small reopen-btn">
+                      <ion-icon name="arrow-back-outline"></ion-icon>
+                      Reopen
+                    </button>
+                    <button class="btn btn-danger btn-small arhive-btn">
+                      <ion-icon name="archive-outline"></ion-icon>
+                      Archive
+                    </button>
+                  </div>
+                </div>`
+
+
+  wrapper.insertAdjacentHTML('beforeend', projectCard)
+  // remove unnecesary buttons 
+  if (project.status === projectStatus[0]) {
+    wrapper.lastElementChild.querySelector('.back-btn').remove()
+    wrapper.lastElementChild.querySelector('.reopen-btn').remove()
+    wrapper.lastElementChild.querySelector('.arhive-btn').remove()
+  }
+  else if (project.status === projectStatus[1]) {
+    wrapper.lastElementChild.querySelector('.start-btn').remove()
+    wrapper.lastElementChild.querySelector('.reopen-btn').remove()
+    wrapper.lastElementChild.querySelector('.arhive-btn').remove()
+  }
+  else if (project.status === projectStatus[2]) {
+    wrapper.lastElementChild.querySelector('.back-btn').remove()
+    wrapper.lastElementChild.querySelector('.start-btn').remove()
+    wrapper.lastElementChild.querySelector('.assign-btn').remove()
+  }
+}
+
